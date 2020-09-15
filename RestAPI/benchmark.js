@@ -15,9 +15,7 @@ const multipleClient = async () => {
       let childProcess = await childProc.spawn("node", cmd[randomInt(3)]);
       childProcess.stdout.on("data", (data) => {
         console.log(`child stdout: ${data}`);
-        //   times.push(parseInt(data));
       });
-      // children.push(childProcess);
     }
   }
   const end_t = new Date();
