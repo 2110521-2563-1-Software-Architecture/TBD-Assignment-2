@@ -1,27 +1,29 @@
-const request = require("request");
+// const request = require("request");
 const axios = require("axios");
 
-function getBook(bookID) {
-  const start = new Date();
-  axios
+async function getBook(bookID) {
+  // const start = new Date();
+  await axios
     .get(`http://localhost:3000/books/${bookID}`)
     .then((response) => {
-      const end = new Date();
-      console.log(response.data);
-      console.log("Time = ", end - start);
+      // const end = new Date();
+      // console.log(response.data);
+      // console.log("Time = ", end - start);
+      // console.log("get");
       return;
     })
     .catch((error) => printError(error));
 }
 
-function listBook() {
-  const start = new Date();
-  axios
+async function listBook() {
+  // const start = new Date();
+  await axios
     .get(`http://localhost:3000/books`)
     .then((response) => {
-      const end = new Date();
-      console.log(response.data);
-      console.log("Time = ", end - start);
+      // const end = new Date();
+      // console.log(response.data);
+      // console.log("Time = ", end - start);
+      // console.log("list");
       return;
     })
     .catch((error) => printError(error));
@@ -41,17 +43,19 @@ async function insertBook(bookID, bookTitle, bookAuthor) {
       // const end = new Date();
       // console.log("Time = ", end - start);
       // return;
+      // console.log("insert");
     })
     .catch((error) => printError(error));
 }
 
-function deleteBook(bookID) {
-  const start = new Date();
-  axios
+async function deleteBook(bookID) {
+  // const start = new Date();
+  await axios
     .delete(`http://localhost:3000/books/delete/${bookID}`)
     .then((response) => {
-      const end = new Date();
-      console.log("Time = ", end - start);
+      // const end = new Date();
+      // console.log("Time = ", end - start);
+      // console.log("delete");
       return;
     })
     .catch((error) => printError(error));
@@ -70,7 +74,9 @@ var scriptName = process.argv.shift();
 var command = process.argv.shift();
 
 if (command == "list") listBook();
-else if (command == "insert") {
+else if (command == "insert")
+  insertBook(process.argv[1], process.argv[2], process.argv[3]);
+else if (command == "insert_multiple") {
   insertBookIteration(
     process.argv[0],
     process.argv[1],
