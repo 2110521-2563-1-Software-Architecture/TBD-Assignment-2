@@ -27,12 +27,17 @@ var scriptName = process.argv.shift();
 var command = process.argv.shift();
 
 if (command == "a") {
-  insertBookIteration(
+  let childProcess = childProc.spawn("node", [
+    "client.js",
+    "insert_multiple",
     process.argv[0],
-    process.argv[1],
-    process.argv[2],
-    process.argv[3]
-  );
+    99,
+    "a",
+    "b",
+  ]);
+  childProcess.stdout.on("data", (data) => {
+    console.log(`child stdout: ${data}`);
+  });
 } else if (command == "b") {
   multipleClient();
 }
