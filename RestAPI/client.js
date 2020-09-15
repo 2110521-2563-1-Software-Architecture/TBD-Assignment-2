@@ -1,66 +1,61 @@
 const request = require("request");
+const axios = require("axios");
 
 function getBook(bookID) {
-  request.get(
-    "http://localhost:3000/books/" + String(bookID),
-    (err, res, body) => {
-      if (err) {
-        return console.log(err);
-      }
-      console.log(JSON.parse(body));
-    }
-  );
+  const start = new Date();
+  axios
+    .get(`http://localhost:3000/books/${bookID}`)
+    .then((response) => {
+      const end = new Date();
+      console.log(response.data);
+      console.log("Time = ", end - start);
+      return;
+    })
+    .catch((error) => printError(error))
 }
 
 function listBook() {
-  const options = {
-    url: "http://localhost:3000/books",
-    secure: false,
-  };
-  request.get(options, (err, res, body) => {
-    if (err) {
-      return console.log(err);
-    }
-    console.log(JSON.parse(body));
-  });
+  const start = new Date();
+  axios
+    .get(`http://localhost:3000/books`)
+    .then((response) => {
+      const end = new Date();
+      console.log(response.data);
+      console.log("Time = ", end - start);
+      return;
+    })
+    .catch((error) => printError(error))
 }
 
 function insertBook(bookID, bookTitle, bookAuthor) {
-  const options = {
-    url: "http://localhost:3000/books/insert",
-    json: true,
-    body: {
+    const url = `http://localhost:3000/books/insert`;
+    const body = {
       id: parseInt(bookID),
       title: bookTitle,
       author: bookAuthor,
-    },
-  };
-  request.post(options, (err, res, body) => {
-    if (err) {
-      return console.log(err);
     }
-  });
+  const start = new Date();
+  axios
+    .post(url,body)
+    .then((response) => {
+      const end = new Date();
+      console.log("Time = ", end - start);
+      return;
+    })
+    .catch((error) => printError(error))
 }
 
 function deleteBook(bookID) {
-  request.delete(
-    "http://localhost:3000/books/delete/" + String(bookID),
-    (err, res, body) => {
-      if (err) {
-        return console.log(err);
-      }
-    }
-  );
+  const start = new Date();
+  axios
+    .delete(`http://localhost:3000/books/delete/${bookID}`)
+    .then((response) => {
+      const end = new Date();
+      console.log("Time = ", end - start);
+      return;
+    })
+    .catch((error) => printError(error))
 }
-
-// function watchBook() {
-//   request.get("http://localhost:3000/streaming", (err, res, body) => {
-//     if (err) {
-//       return console.log(err);
-//     }
-//     console.log(body);
-//   });
-// }
 
 var processName = process.argv.shift();
 var scriptName = process.argv.shift();
@@ -71,5 +66,3 @@ else if (command == "insert")
   insertBook(process.argv[0], process.argv[1], process.argv[2]);
 else if (command == "get") getBook(process.argv[0]);
 else if (command == "delete") deleteBook(process.argv[0]);
-// else if (command == 'watch')
-//   watchBook();
