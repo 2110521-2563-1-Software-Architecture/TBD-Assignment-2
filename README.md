@@ -16,8 +16,12 @@ In this scenario we just loop through the insert service using exec of child pro
 **Scenario b.** Multiple clients with different kind of calls.<br />
 We apply the OOP concept to REST API to generate multiple client while applying the child process with gRPC to send request. Both have two clients.
 
+<img src = '/ScenarioB.png' width='498' height='312'>
+
 **Scenario c.** Vary the number of concurrent calls from 1 to 4096 calls.
 Both using Class to generate multiple client objects to call concurrent calls.
+
+<img src = '/ScenarioC.png' width='498' height='312'>
 
 ### Discussion of the results why one method is better the other in which scenarios.
 In scenario a, a performance of gRPC inserting a book is quite close to a performance of REST API. We notice that ina scenario c gRPC performs far better than REST API. Of course, gRPC would be better than REST API since gRPC uses http/2 while REST API uses http/1. However, there is something weird about scenario b. I think it is because of the interface of gRPC client to access the server makes it performance quite terrible.
