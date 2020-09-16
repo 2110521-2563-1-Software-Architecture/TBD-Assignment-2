@@ -13,6 +13,8 @@
 **Scenario a.** Single client with a small call to insert a book item, a bigger call to insert a list of multiple book items.<br />
 In this scenario we just loop through the insert service using exec of child process.
 
+<img src = '/ScenarioA.png' width='498' height='312'>
+
 **Scenario b.** Multiple clients with different kind of calls.<br />
 We apply the OOP concept to REST API to generate multiple client while applying the child process with gRPC to send request. Both have two clients.
 
