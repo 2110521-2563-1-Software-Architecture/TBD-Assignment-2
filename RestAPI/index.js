@@ -131,7 +131,7 @@ app.delete("/books/delete/:id", (req, res) => {
   const deletedIndex = books.findIndex(
     (book) => book.id === parseInt(req.params.id)
   );
-  console.log(deletedIndex);
+  // console.log(deletedIndex);
   books.splice(deletedIndex, 1);
   res.status(204).send("");
 });

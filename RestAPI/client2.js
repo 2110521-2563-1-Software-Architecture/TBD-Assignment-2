@@ -1,5 +1,11 @@
 // const request = require("request");
+const fs = require("fs");
 const axios = require("axios");
+const { throws } = require("assert");
+
+let stats_a = {
+  time: [],
+};
 
 async function getBook(bookID) {
   // const start = new Date();
@@ -36,16 +42,17 @@ async function insertBook(bookID, bookTitle, bookAuthor) {
     title: bookTitle,
     author: bookAuthor,
   };
-  // const start = new Date();
+  const start = new Date();
   await axios
     .post(url, body)
     .then((response) => {
-      // const end = new Date();
+      const end = new Date();
       // console.log("Time = ", end - start);
+      // stats.number_of_call.push(k);
+      stats_a.time.push(end - start);
       // return;
-      // console.log("insert");
     })
-    .catch((error) => printError(error));
+    .catch((error) => console.log(error));
 }
 
 async function deleteBook(bookID) {
@@ -61,12 +68,23 @@ async function deleteBook(bookID) {
     .catch((error) => printError(error));
 }
 
-async function insertBookIteration(times, bookID, bookTitle, bookAuthor) {
-  const start_total = new Date();
+async function insertBookIteration(times) {
+  stats_a = {
+    time: [],
+  };
+  // const start_total = new Date();
   for (let i = 0; i < times; i++)
-    await insertBook(bookID, bookTitle, bookAuthor);
-  const end_total = new Date();
-  console.log("Total time:", end_total - start_total, "ms");
+    await insertBook(99, "bookTitle", "bookAuthor");
+  // const end_total = new Date();
+
+  // console.log("Total time:", end_total - start_total, "ms");
+  const data = JSON.stringify(stats_a);
+  fs.writeFile("stats_rest_a.json", data, (err) => {
+    if (err) {
+      throw err;
+    }
+    console.log("JSON data is saved.");
+  });
 }
 
 var processName = process.argv.shift();
@@ -77,11 +95,6 @@ if (command == "list") listBook();
 else if (command == "insert")
   insertBook(process.argv[1], process.argv[2], process.argv[3]);
 else if (command == "insert_multiple") {
-  insertBookIteration(
-    process.argv[0],
-    process.argv[1],
-    process.argv[2],
-    process.argv[3]
-  );
+  insertBookIteration(process.argv[0]);
 } else if (command == "get") getBook(process.argv[0]);
 else if (command == "delete") deleteBook(process.argv[0]);
