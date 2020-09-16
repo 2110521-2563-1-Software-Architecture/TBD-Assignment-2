@@ -141,29 +141,56 @@ async function multipleClient() {
   const client2 = new Client();
   //   let client1_req = [];
   //   let client2_req = [];
+  // for (let i = 1; i <= 500; i++) {
+  //   const start_t = new Date();
+  //   const c1 = randomInt(3);
+  //   switch (c1) {
+  //     case 0:
+  //       await client1.listBook();
+  //     case 1:
+  //       await client1.insertBook(1, "c1", "c1");
+  //     case 2:
+  //       await client1.deleteBook(2);
+  //     case 3:
+  //       await client1.getBook(1);
+  //   }
+  //   const c2 = randomInt(3);
+  //   switch (c2) {
+  //     case 0:
+  //       await client2.listBook();
+  //     case 1:
+  //       await client2.insertBook(2, "c2", "c2");
+  //     case 2:
+  //       await client2.deleteBook(1);
+  //     case 3:
+  //       await client2.getBook(2);
+  //   }
   for (let i = 1; i <= 500; i++) {
     const start_t = new Date();
-    const c1 = randomInt(3);
-    switch (c1) {
-      case 0:
-        await client1.listBook();
-      case 1:
-        await client1.insertBook(1, "c1", "c1");
-      case 2:
-        await client1.deleteBook(2);
-      case 3:
-        await client1.getBook(1);
-    }
-    const c2 = randomInt(3);
-    switch (c2) {
-      case 0:
-        await client2.listBook();
-      case 1:
-        await client2.insertBook(2, "c2", "c2");
-      case 2:
-        await client2.deleteBook(1);
-      case 3:
-        await client2.getBook(2);
+    if (randomInt(1) > 0) {
+      const c1 = randomInt(3);
+      switch (c1) {
+        case 0:
+          await client1.listBook();
+        case 1:
+          await client1.insertBook(1, "c1", "c1");
+        case 2:
+          await client1.deleteBook(2);
+        case 3:
+          await client1.getBook(1);
+      }
+    } else {
+      const c2 = randomInt(3);
+      switch (c2) {
+        case 0:
+          await client2.listBook();
+        case 1:
+          await client2.insertBook(2, "c2", "c2");
+        case 2:
+          await client2.deleteBook(1);
+        case 3:
+          await client2.getBook(2);
+      }
     }
     // console.log("Time", new Date() - start_t);
     const end_t = new Date();

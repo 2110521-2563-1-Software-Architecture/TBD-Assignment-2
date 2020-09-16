@@ -48,7 +48,17 @@ async function insertBook(bookID, bookTitle, bookAuthor) {
       const end = new Date();
       // console.log("Time = ", end - start);
       // stats.number_of_call.push(k);
-      stats_a.time.push(end - start);
+      // stats_a.time.push(end - start);
+      fs.appendFile(
+        "stats_rest_a.txt",
+        (end - start).toString() + "\n",
+        (err) => {
+          if (err) {
+            throw err;
+          }
+          // console.log("JSON data is saved.");
+        }
+      );
       // return;
     })
     .catch((error) => console.log(error));

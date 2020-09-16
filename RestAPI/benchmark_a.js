@@ -1,4 +1,6 @@
 // const request = require("request");
+const util = require("util");
+const exec = util.promisify(require("child_process").exec);
 const fs = require("fs");
 const axios = require("axios");
 
@@ -54,22 +56,26 @@ async function deleteBook(bookID) {
 }
 
 async function insertBookIteration(times) {
-  stats_a = {
-    time: [],
-  };
-  // const start_total = new Date();
-  for (let i = 0; i < times; i++)
-    await insertBook(99, "bookTitle", "bookAuthor");
-  // const end_total = new Date();
+  // stats_a = {
+  //   time: [],
+  // };
+  // // const start_total = new Date();
+  // for (let i = 0; i < times; i++)
+  //   await insertBook(99, "bookTitle", "bookAuthor");
+  // // const end_total = new Date();
 
-  // console.log("Total time:", end_total - start_total, "ms");
-  const data = JSON.stringify(stats_a);
-  fs.writeFile("stats_rest_a.json", data, (err) => {
-    if (err) {
-      throw err;
-    }
-    console.log("JSON data is saved.");
-  });
+  // // console.log("Total time:", end_total - start_total, "ms");
+  // const data = JSON.stringify(stats_a);
+  // fs.writeFile("stats_rest_a.json", data, (err) => {
+  //   if (err) {
+  //     throw err;
+  //   }
+  //   console.log("JSON data is saved.");
+  // });
+  for (let i = 0; i < times; i++) {
+    await exec(`node client.js insert 1 test_title test_author`);
+    // break;
+  }
 }
 
 async function main() {
