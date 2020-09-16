@@ -1,25 +1,10 @@
 // const request = require("request");
 const fs = require("fs");
 const axios = require("axios");
-const { throws } = require("assert");
 
 let stats_a = {
   time: [],
 };
-
-async function getBook(bookID) {
-  // const start = new Date();
-  await axios
-    .get(`http://localhost:3000/books/${bookID}`)
-    .then((response) => {
-      // const end = new Date();
-      // console.log(response.data);
-      // console.log("Time = ", end - start);
-      // console.log("get");
-      return;
-    })
-    .catch((error) => printError(error));
-}
 
 async function listBook() {
   // const start = new Date();
@@ -87,14 +72,8 @@ async function insertBookIteration(times) {
   });
 }
 
-var processName = process.argv.shift();
-var scriptName = process.argv.shift();
-var command = process.argv.shift();
+async function main() {
+  insertBookIteration(1000);
+}
 
-if (command == "list") listBook();
-else if (command == "insert")
-  insertBook(process.argv[1], process.argv[2], process.argv[3]);
-else if (command == "insert_multiple") {
-  insertBookIteration(process.argv[0]);
-} else if (command == "get") getBook(process.argv[0]);
-else if (command == "delete") deleteBook(process.argv[0]);
+main();

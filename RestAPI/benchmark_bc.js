@@ -185,9 +185,7 @@ async function main() {
   var scriptName = process.argv.shift();
   var command = process.argv.shift();
 
-  if (command == "a") {
-    exec("node client1.js insert_multiple 1000");
-  } else if (command == "b") {
+  if (command == "b") {
     multipleClient();
   } else if (command == "c") {
     concurrentCall();
