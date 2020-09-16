@@ -16,7 +16,7 @@ In this scenario we just loop through the insert service using exec of child pro
 <img src = '/ScenarioA.png' width='498' height='312'>
 
 **Scenario b.** Multiple clients with different kind of calls.<br />
-We apply the OOP concept to REST API to generate multiple client while applying the child process with gRPC to send request. Both have two clients.
+Both applying the child process to send request and have two clients.
 
 <img src = '/ScenarioB.png' width='498' height='312'>
 
