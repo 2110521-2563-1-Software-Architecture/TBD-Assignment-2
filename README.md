@@ -26,7 +26,7 @@ Both using Class to generate multiple client objects to call concurrent calls.
 <img src = '/ScenarioC.png' width='498' height='312'>
 
 ### Discussion of the results why one method is better the other in which scenarios.
-In scenario a, a performance of gRPC inserting a book is quite close to a performance of REST API. We notice that ina scenario c gRPC performs far better than REST API. Of course, gRPC would be better than REST API since gRPC uses http/2 while REST API uses http/1. However, there is something weird about scenario b. I think it is because of the interface of gRPC client to access the server makes it performance quite terrible.
+In scenario a, a performance of gRPC inserting a book is quite close to a performance of REST API. We notice that ina scenario c gRPC performs far better than REST API. Of course, gRPC would be better than REST API since gRPC uses http/2 while REST API uses http/1. However, there is something weird about scenario b. I think it is because of the interface of gRPC client to access the server makes its performance more terrible than REST API.
 
 ### Comparison of the gRPC and REST API from the aspects of language neutral, ease of use, and performance. 
 **Language Neutral:** Since REST API has been renowed and dominated in software development industry, developer usually familiar with the syntax of REST API more than gRPC.<br />
