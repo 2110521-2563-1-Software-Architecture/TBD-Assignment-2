@@ -1,6 +1,8 @@
 const fs = require("fs");
 const axios = require("axios");
 const randomInt = require("random-int");
+const util = require("util");
+const exec = util.promisify(require("child_process").exec);
 
 class Client {
   async getBook(bookID) {
@@ -132,64 +134,48 @@ async function concurrentCall() {
   });
 }
 
-async function multipleClient() {
+async function doExec(content) {
+  const { stdout, stderr } = await exec(content);
+}
+
+const multipleClient = async () => {
   let stats_b = {
     number_of_call: [],
     time: [],
   };
-  const client1 = new Client();
-  const client2 = new Client();
-  //   let client1_req = [];
-  //   let client2_req = [];
-  // for (let i = 1; i <= 500; i++) {
-  //   const start_t = new Date();
-  //   const c1 = randomInt(3);
-  //   switch (c1) {
-  //     case 0:
-  //       await client1.listBook();
-  //     case 1:
-  //       await client1.insertBook(1, "c1", "c1");
-  //     case 2:
-  //       await client1.deleteBook(2);
-  //     case 3:
-  //       await client1.getBook(1);
-  //   }
-  //   const c2 = randomInt(3);
-  //   switch (c2) {
-  //     case 0:
-  //       await client2.listBook();
-  //     case 1:
-  //       await client2.insertBook(2, "c2", "c2");
-  //     case 2:
-  //       await client2.deleteBook(1);
-  //     case 3:
-  //       await client2.getBook(2);
-  //   }
   for (let i = 1; i <= 500; i++) {
     const start_t = new Date();
-    if (randomInt(1) > 0) {
-      const c1 = randomInt(3);
-      switch (c1) {
+    const c = randomInt(3);
+    const id = randomInt(1);
+    if (id == 0) {
+      switch (c) {
         case 0:
-          await client1.listBook();
+          await doExec(`node client1.js insert 1 test_title test_author`);
+          break;
         case 1:
-          await client1.insertBook(1, "c1", "c1");
+          await doExec(`node client1.js list`);
+          break;
         case 2:
-          await client1.deleteBook(2);
+          await doExec(`node client1.js get 1`);
+          break;
         case 3:
-          await client1.getBook(1);
+          await doExec(`node client1.js delete 1`);
+          break;
       }
     } else {
-      const c2 = randomInt(3);
-      switch (c2) {
+      switch (c) {
         case 0:
-          await client2.listBook();
+          await doExec(`node client2.js insert 1 test_title test_author`);
+          break;
         case 1:
-          await client2.insertBook(2, "c2", "c2");
+          await doExec(`node client2.js list`);
+          break;
         case 2:
-          await client2.deleteBook(1);
+          await doExec(`node client2.js get 1`);
+          break;
         case 3:
-          await client2.getBook(2);
+          await doExec(`node client2.js delete 1`);
+          break;
       }
     }
     // console.log("Time", new Date() - start_t);
@@ -204,8 +190,56 @@ async function multipleClient() {
     }
     console.log("JSON data is saved.");
   });
-  //   await Promise.all(client1_req.concat(client2_req));
-}
+};
+
+// async function multipleClient() {
+//   let stats_b = {
+//     number_of_call: [],
+//     time: [],
+//   };
+//   const client1 = new Client();
+//   const client2 = new Client();
+//   for (let i = 1; i <= 500; i++) {
+//     const start_t = new Date();
+//     if (randomInt(1) > 0) {
+//       const c1 = randomInt(3);
+//       switch (c1) {
+//         case 0:
+//           await client1.listBook();
+//         case 1:
+//           await client1.insertBook(1, "c1", "c1");
+//         case 2:
+//           await client1.deleteBook(2);
+//         case 3:
+//           await client1.getBook(1);
+//       }
+//     } else {
+//       const c2 = randomInt(3);
+//       switch (c2) {
+//         case 0:
+//           await client2.listBook();
+//         case 1:
+//           await client2.insertBook(2, "c2", "c2");
+//         case 2:
+//           await client2.deleteBook(1);
+//         case 3:
+//           await client2.getBook(2);
+//       }
+//     }
+//     // console.log("Time", new Date() - start_t);
+//     const end_t = new Date();
+//     stats_b.number_of_call.push(i);
+//     stats_b.time.push(end_t - start_t);
+//   }
+//   const data = JSON.stringify(stats_b);
+//   fs.writeFile("stats_rest_b.json", data, (err) => {
+//     if (err) {
+//       throw err;
+//     }
+//     console.log("JSON data is saved.");
+//   });
+//   //   await Promise.all(client1_req.concat(client2_req));
+// }
 
 async function main() {
   var processName = process.argv.shift();

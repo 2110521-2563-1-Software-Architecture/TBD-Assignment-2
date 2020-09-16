@@ -65,16 +65,7 @@ let stats_b = {
 };
 
 async function doExec(content) {
-  //console.log('content:',content);
-  //   const start_t = new Date();
   const { stdout, stderr } = await exec(content);
-  //   console.log('stdout:',stdout);
-  //   const response = stdout.split(": ");
-  //   //console.log('response:',response);
-  //   const responseTime = parseInt(response[response.length - 1]);
-  //   console.log("responseTime:", responseTime, content);
-  //   const end_t = new Date();
-  //   console.log(end_t - start_t);
 }
 
 const multipleClient = async () => {
