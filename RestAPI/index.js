@@ -45,7 +45,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
  */
 
 app.get("/books", (req, res) => {
-  res.status(200).send(books);
+  return res.status(200).send(books);
 });
 
 /**

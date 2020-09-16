@@ -1,7 +1,6 @@
 // const request = require("request");
 const fs = require("fs");
 const axios = require("axios");
-const { throws } = require("assert");
 
 let stats_a = {
   time: [],
