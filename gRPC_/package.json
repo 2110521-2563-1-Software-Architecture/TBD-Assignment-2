@@ -1,5 +1,5 @@
 {
-  "name": "grpc",
+  "name": "grpc_api",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -8,5 +8,10 @@
   },
   "keywords": [],
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "@grpc/proto-loader": "^0.5.5",
+    "grpc": "^1.24.3",
+    "random-int": "^2.0.1"
+  }
 }
